@@ -2,7 +2,7 @@
 
 ## What you need:
 - Working pihole setup
-- Ubuntu / Debian based linux distribution (tested on elementary os)
+- Virtual Box(with atleast 3 instances of Ubuntu) 
 - Copy of mirai source code
 
 ## What we will do
@@ -10,7 +10,25 @@ The goal is to setup and run mirai in an local environment.
 But a disclaimer at the beginning: Do not use this to actually attack somebody its only for educational use.
 <br><br>
 
-## Setup tools
+## Virtual Machine - 1 DNS server
+First we need to setup a local DNS server to have query resolution to run bot.
+For this we will be using Pi-Hole
+
+To install Pi-Hole run the following command
+
+```
+curl -sSL https://install.pi-hole.net | sudo PIHOLE_SKIP_OS_CHECK=true bash
+```
+Change the Pi-Hole password using this command
+
+```
+pihole -a -p [password]
+```
+
+Open Pi-Hole in your browser wiht the url that is shown in the terminal.
+
+
+## Virtual Machine - 2 CNC & MySQL server
 ### First we need to install some packages  
 
 ```
@@ -27,8 +45,31 @@ sudo bash ./tools/compilers.sh
 **Now please restart your bash for those changes to take effect**
 <br>
 
+Now add paths for the installed cross-compilers into bash
 
-### Now we can compile it for the first time :D
+To do that run 
+
+```
+sudo nano ~/.bashrc
+```
+After the file opens add these line at the end of the file
+
+```
+export PATH=$PATH:"/etc/xcompile/armv4l/bin"
+export PATH=$PATH:"/etc/xcompile/armv5l/bin"
+export PATH=$PATH:"/etc/xcompile/armv6l/bin"
+export PATH=$PATH:"/etc/xcompile/i586/bin"
+export PATH=$PATH:"/etc/xcompile/i686/bin"
+export PATH=$PATH:"/etc/xcompile/m68k/bin"
+export PATH=$PATH:"/etc/xcompile/mips/bin"
+export PATH=$PATH:"/etc/xcompile/mipsel/bin"
+export PATH=$PATH:"/etc/xcompile/powerpc/bin"
+export PATH=$PATH:"/etc/xcompile/sh4/bin"
+export PATH=$PATH:"/etc/xcompile/sparc/bin"
+export PATH=$PATH:"/etc/xcompile/x86_64/bin"
+```
+save it and restart the terminal
+### Now we can compile it for the first time
 ```
 bash ./setup.sh
 bash ./build.sh debug telnet
