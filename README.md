@@ -1,4 +1,4 @@
-# Mirai setup
+# Mirai-Setup
 
 ## What you need:
 - Working pihole setup(for local DNS server)
