@@ -21,7 +21,7 @@ Now power on all machines and then upgrade and update all the machines using the
 ```
 sudo apt update && sudo apt upgrade
 ```
-
+**Also make sure that both interfaces are turned on. If the internal network interface doesn't connect try to switch the IPv4 status to Link-only in the settings.**
 ---
 
 ## Virtual Machine - 1 DNS server
