@@ -30,7 +30,7 @@ sudo apt update && sudo apt upgrade
 ip a
 ```
 This is what you might see:
-<br><img alt="ip" src="https://github.com/LohithCV/mirai-setup/assets/125025760/5732ffc2-ec87-4e6b-958b-9c560762baf4" width="600"/>
+<br><img alt="ip" src="https://github.com/LohithCV/mirai-setup/assets/125025760/8f59d719-db1c-46d5-ae59-738ae96eda99" width="600"/>
 
 <br>Note down the IPv4 address and network interface of the internal network interface. In the above figure it is 169.254.182.101 and enp0s3 respectively.
 <br>
