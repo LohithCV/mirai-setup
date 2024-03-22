@@ -29,9 +29,12 @@ sudo apt update && sudo apt upgrade
 ```
 ip a
 ```
-This is what you will see:
-<br>"IMAGE OF IP A"
-<br>Note down the IPv4 address and network interface of the internal network interface. In the above figure it is 169.254.  . and ensp 
+This is what you might see:
+<br><img alt="ip" src="https://github.com/LohithCV/mirai-setup/assets/125025760/5732ffc2-ec87-4e6b-958b-9c560762baf4" width="600"/>
+
+<br>Note down the IPv4 address and network interface of the internal network interface. In the above figure it is 169.254.182.101 and enp0s3 respectively.
+<br>
+**Note: In virtual machines generally the NAT interface has IPv4 address as 10.0.x.x so we consider the other interface as Internal network interface.**
 <br><br>
 **Now we setup a local DNS server to have query resolution to run bot.**
 <br>
@@ -91,6 +94,8 @@ If everything is done right the login window will appear as below:
 sudo apt install gcc golang electric-fence mysql-server mysql-client screen dialog python3 apache2 -y
 ```
 <br>
+
+**Clone this repository into your Virtual Machine and open the terminal in the cloned repository path**
 
 ### The next step is to install the cross compilers
 
