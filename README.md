@@ -1,7 +1,7 @@
 # Mirai setup
 
 ## What you need:
-- Working pihole setup
+- Working pihole setup(for local DNS server)
 - Virtual Box(with atleast 3 instances of Ubuntu) 
 - Copy of mirai source code
 
@@ -19,13 +19,15 @@ To install Pi-Hole run the following command
 ```
 curl -sSL https://install.pi-hole.net | sudo PIHOLE_SKIP_OS_CHECK=true bash
 ```
+Packages will be installed and then a dialog will be shown as below:
+
 Change the Pi-Hole password using this command
 
 ```
 pihole -a -p [password]
 ```
 
-Open Pi-Hole in your browser wiht the url that is shown in the terminal.
+Open Pi-Hole in your browser with the url that is shown in the terminal.
 
 
 ## Virtual Machine - 2 CNC & MySQL server
