@@ -42,7 +42,7 @@ To install Pi-Hole run the following command
 ```
 curl -sSL https://install.pi-hole.net | sudo PIHOLE_SKIP_OS_CHECK=true bash
 ```
-Packages will be installed and then a dialogs will be shown as below:
+Packages will be installed and then dialogs will be shown as below:
 1. Select "OK"
 <br><img alt="PI_HOLE_1" src="https://github.com/LohithCV/mirai-setup/assets/125025760/9518168d-3291-4f19-855c-94771b661d51" width="400"/><br><br>
 2. Select "OK"
@@ -77,6 +77,7 @@ If everything is done right the login window will appear as below:
 <br>Use the set password to login and the web interface looks something like this:
 <br><img alt="PI_HOLE_12" src="https://github.com/LohithCV/mirai-setup/assets/125025760/16d21d40-7a3a-44d5-8eda-7a504403121f" width="600"/>
 <br>
+<br>
 
 **The local DNS server setup is done.**
 
@@ -96,14 +97,12 @@ sudo apt install gcc golang electric-fence mysql-server mysql-client screen dial
 ```
 sudo bash ./tools/compilers.sh
 ```
-<br><br>
-
 **Now please restart your bash for those changes to take effect**
 <br><br>
 
 **Now add paths for the installed cross-compilers into bash.**
 
-To do that run 
+To do that run: 
 
 ```
 sudo nano ~/.bashrc
@@ -147,7 +146,7 @@ sudo systemctl restart mysql
 ```
 <br>
 
-### Now we need to change some settings.  
+### Now we need to set a few things 
 **Simply run and type in your domain and dns server:**
 ```
 python3 setup.py
@@ -163,7 +162,7 @@ python3 setup.py
 5. Select Yes
 <br>![py_5](https://github.com/LohithCV/mirai-setup/assets/125025760/3556d88d-4612-4a13-adc6-aa645109b100)<br><br>
 
-Now change the DNS resolver of this machine to the local DNS server's IP.<br>
+**Now change the DNS resolver of this machine to the local DNS server's IP**.<br>
 **Run this command to change the DNS IP:**
 
 ```
