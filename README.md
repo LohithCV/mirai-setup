@@ -32,6 +32,7 @@ All the VM's are connected internally through the intnet virtual switch.
 ![vmtopo](https://github.com/LohithCV/mirai-setup/assets/125025760/307c23f6-3d52-4acd-87ba-e5ae13c38233)
 
 <br>
+
 ## Virtual Machine - 1 DNS server
 **First make sure both the NAT interface and internal network interface is running. It can checked by running the following command in the terminal:**
 ```
